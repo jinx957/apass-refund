@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手动提交易快报 · 手动提交退费弹窗</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="demo-page">
+    <div class="demo-card">
+      <h1>手动提交退费</h1>
+      <p>点击按钮打开「手动提交易快报」弹窗：选择报名表与学生后自动带出订单列表，勾选订单实时计算合计退费金额；全部数据为本地 Mock。</p>
+      <button type="button" class="rf-btn rf-btn--primary" data-open>打开退费弹窗</button>
+      <span class="demo-meta">944px 弹窗 · Element 风格 · 纯前端原型</span>
+    </div>
+  </main>
+
+  <div class="rf-overlay" id="rfOverlay" aria-hidden="true">
+    <div class="rf-dialog" id="rfDialog" role="dialog" aria-modal="true" aria-label="手动提交易快报">
+      <header class="rf-dialog__header">
+        <span class="rf-dialog__title">手动提交易快报</span>
+        <button type="button" class="rf-dialog__close" id="rfClose" aria-label="关闭">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+            <path d="M2.5 2.5l9 9M11.5 2.5l-9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </button>
+      </header>
+
+      <div class="rf-dialog__body" id="rfDialogBody">
+        <form class="rf-form" id="rfForm" action="#" novalidate>
+          <div class="rf-form-row">
+            <label class="rf-label">选择单据</label>
+            <div class="rf-control">
+              <div class="rf-select" data-select="bill" tabindex="0" role="combobox" aria-label="选择单据">
+                <span class="rf-select__text is-placeholder">请选择单据</span>
+                <svg class="rf-select__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.6 4.4 6 7.8l3.4-3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label"><span class="rf-label__star">*</span>是否修改订单</label>
+            <div class="rf-control rf-control--radio" data-radio-group="modifyOrder">
+              <label class="rf-radio rf-radio--checked">
+                <input class="rf-radio__input" type="radio" name="rf-modify" value="no" checked>
+                <span class="rf-radio__dot"></span>
+                <span class="rf-radio__text">不修改</span>
+              </label>
+              <label class="rf-radio">
+                <input class="rf-radio__input" type="radio" name="rf-modify" value="exit">
+                <span class="rf-radio__dot"></span>
+                <span class="rf-radio__text">修改为已退出</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label">选择报名表</label>
+            <div class="rf-control">
+              <div class="rf-select" data-select="form" tabindex="0" role="combobox" aria-label="选择报名表">
+                <span class="rf-select__text is-placeholder">请选择报名表</span>
+                <svg class="rf-select__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.6 4.4 6 7.8l3.4-3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label">选择退费学生</label>
+            <div class="rf-control">
+              <div class="rf-select rf-select--disabled" data-select="student" data-placeholder="请先选择报名表" tabindex="0" role="combobox" aria-label="选择退费学生">
+                <span class="rf-select__text is-placeholder">请先选择报名表</span>
+                <svg class="rf-select__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.6 4.4 6 7.8l3.4-3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label"><span class="rf-label__star">*</span>所属项目</label>
+            <div class="rf-control">
+              <div class="rf-select" data-select="project" tabindex="0" role="combobox" aria-label="所属项目">
+                <span class="rf-select__text is-placeholder">请选择</span>
+                <svg class="rf-select__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.6 4.4 6 7.8l3.4-3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label" for="rf-title"><span class="rf-label__star">*</span>标题</label>
+            <div class="rf-control">
+              <input id="rf-title" class="rf-input" data-input="title" type="text" value="BPhO英国物理测评退费申请-王雨桐">
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label"><span class="rf-label__star">*</span>审批人</label>
+            <div class="rf-control">
+              <div class="rf-select" data-select="approver" tabindex="0" role="combobox" aria-label="审批人">
+                <span class="rf-select__text is-placeholder">请选择</span>
+                <svg class="rf-select__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.6 4.4 6 7.8l3.4-3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="rf-section-title">订单详情</h3>
+
+          <div class="rf-orders" data-orders>
+            <div class="rf-orders__meta" data-orders-meta>创建时间 — · 支付时间 — · 订单号 —</div>
+            <div class="rf-orders__scroll">
+              <table class="rf-table">
+                <thead>
+                  <tr>
+                    <th class="rf-table__check">勾选</th>
+                    <th>名称</th>
+                    <th class="rf-table__amount">订单金额</th>
+                    <th class="rf-table__status">订单状态</th>
+                    <th class="rf-table__refund">退费金额</th>
+                  </tr>
+                </thead>
+                <tbody data-orders-body>
+                  <tr><td class="rf-table__empty" colspan="5">请先选择报名表与退费学生</td></tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td class="rf-orders__total" colspan="5">合计：勾选 <b data-orders-count>0</b> 件 · 合计退费金额 <b data-orders-sum>¥ 0</b></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <p class="rf-orders__note">如该报名表是港币支付，则退款金额为港币（如理工科）；如该报名表是人民币支付，则退款金额为人民币（如志愿者等项目）不需要自己进行货币转换。</p>
+          </div>
+
+          <div class="rf-refund-rules">
+            <p class="rf-refund-rules__title">退费规则</p>
+            <p class="rf-refund-rules__item">所有项目：付款后 24 小时之内，可无条件全额退款</p>
+            <p class="rf-refund-rules__item">金额 1000 以内：项目开始（考试前）48 小时之前，可无条件全额退款</p>
+            <p class="rf-refund-rules__item">金额 1000 以上：项目开始（考试前）48 小时之前，扣除已发生成本后退款；项目已开始两天内，或项目期间在项目结束前退出，最多可退款 15%</p>
+            <p class="rf-refund-rules__item">APASS退费政策：开通15天内，无论是否使用，均可全额退费。开通后15天至1个月，退费需扣除25%服务费。开通超过1个月，不予退费</p>
+          </div>
+
+          <div class="rf-alert">
+            <svg class="rf-alert__icon" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+              <path d="M7 1.4 13.3 12.5H.7L7 1.4Z" fill="currentColor"></path>
+              <path d="M7 5.2v3.4" stroke="var(--rf-warn-bg)" stroke-width="1.3" stroke-linecap="round"></path>
+              <circle cx="7" cy="10.7" r="0.75" fill="var(--rf-warn-bg)"></circle>
+            </svg>
+            <span class="rf-alert__text">请核对退款金额与收款账户信息后提交</span>
+          </div>
+
+          <div class="rf-notes">
+            <p data-note-fee>注：该学生报名时报名费为：4800，默认退费费用为此的75%；该学生可退金额：3600（学生支付费用：4800）</p>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label"><span class="rf-label__star">*</span>报销日期</label>
+            <div class="rf-control">
+              <div class="rf-date" data-date tabindex="0" role="button" aria-label="报销日期">
+                <span class="rf-date__value">2026-09-16</span>
+                <svg class="rf-date__icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <rect x="1.2" y="2.2" width="11.6" height="10.6" rx="1.6" stroke="currentColor" stroke-width="1.1"></rect>
+                  <path d="M1.2 5.6h11.6" stroke="currentColor" stroke-width="1.1"></path>
+                  <path d="M4.6 1v2.4M9.4 1v2.4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="rf-section-title">收款信息</h3>
+
+          <div class="rf-form-row">
+            <label class="rf-label"><span class="rf-label__star">*</span>法人实体</label>
+            <div class="rf-control">
+              <div class="rf-select" data-select="entity" tabindex="0" role="combobox" aria-label="法人实体">
+                <span class="rf-select__text is-placeholder">请选择</span>
+                <svg class="rf-select__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.6 4.4 6 7.8l3.4-3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label">学生支付订单号</label>
+            <div class="rf-control">
+              <div class="rf-cell-btn">
+                <div class="rf-select rf-select--disabled rf-select--narrow" data-order="payNo">
+                  <span class="rf-select__text is-placeholder"></span>
+                </div>
+                <button type="button" class="rf-gbtn rf-gbtn--dim" data-copy="payNo" data-copy-label="学生支付订单号" disabled>复制</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label">商户订单号</label>
+            <div class="rf-control">
+              <div class="rf-cell-btn">
+                <div class="rf-select rf-select--disabled rf-select--narrow" data-order="merchantNo">
+                  <span class="rf-select__text is-placeholder"></span>
+                </div>
+                <button type="button" class="rf-gbtn rf-gbtn--dim" data-copy="merchantNo" data-copy-label="商户订单号" disabled>复制</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label">学生学校</label>
+            <div class="rf-control">
+              <div class="rf-cell-btn">
+                <button type="button" class="rf-gbtn rf-gbtn--dim" data-school title="点击切换本校 / 外校">本校</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label"><span class="rf-label__star">*</span>申请原因</label>
+            <div class="rf-control">
+              <div class="rf-cell-btn">
+                <input class="rf-input rf-input--narrow" data-input="reason" type="text" value="已退出">
+                <button type="button" class="rf-gbtn rf-gbtn--solid" data-copy="reason" data-copy-label="申请原因">复制（学生可见）</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label">报销部门</label>
+            <div class="rf-control">
+              <div class="rf-select" data-select="dept" tabindex="0" role="combobox" aria-label="报销部门">
+                <span class="rf-select__text is-placeholder">请选择</span>
+                <svg class="rf-select__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.6 4.4 6 7.8l3.4-3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf-form-row">
+            <label class="rf-label" for="rf-desc"><span class="rf-label__star">*</span>描述</label>
+            <div class="rf-control">
+              <textarea id="rf-desc" class="rf-textarea" data-input="desc" rows="2" placeholder="请输入易快报提交描述，学生不可见仅用于内部沟通"></textarea>
+              <button type="button" class="rf-upload" data-upload>
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M7 9.8V2.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+                  <path d="M4 5.2 7 2.2l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M2.2 12h9.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+                </svg>
+                <span>立即上传</span>
+              </button>
+              <input class="rf-file-input" data-file-input type="file" multiple hidden>
+              <ul class="rf-filelist" data-filelist hidden></ul>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <footer class="rf-dialog__footer">
+        <button type="button" class="rf-btn rf-btn--plain" data-close>取 消</button>
+        <button type="button" class="rf-btn rf-btn--primary" data-submit>
+          <span class="rf-btn__spinner" aria-hidden="true"></span>
+          <span data-submit-label>提 交</span>
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="rf-toast-wrap" id="rfToastWrap" aria-live="polite"></div>
+
+  <script src="mock.js"></script>
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
