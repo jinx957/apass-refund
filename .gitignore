@@ -1,0 +1,6 @@
+# 忽略调试截图与上传的参考图
+debug_*.png
+case*.png
+verify-*.png
+.uploads/*image.png
+.trae-html-share-packages/
