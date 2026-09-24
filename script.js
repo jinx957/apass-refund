@@ -508,13 +508,17 @@
         else refundVal = rfItemRefund(rule, it.price);
       }
       var quick75 = Math.round(it.price * 0.75 * 100) / 100;
+      var quick100 = it.price;
       var refundCellHtml;
       if (rule.blocked || viewOnly) {
         refundCellHtml = '<span class="rf-refund-text">' + (refundVal === null ? '—' : money(o.currency, refundVal)) + '</span>';
       } else {
         refundCellHtml = '<div class="rf-refund-edit">' +
-          '<button type="button" class="rf-quick75" title="点击将退款金额设为订单金额×75%">75%</button>' +
           '<input class="rf-refund-input" type="text" inputmode="decimal" aria-label="退款金额 ' + it.name + '" value="' + (refundVal === null ? '' : refundVal) + '">' +
+          '<div class="rf-quick-row">' +
+            '<button type="button" class="rf-quick75" title="点击将退款金额设为订单金额×75%">75%</button>' +
+            '<button type="button" class="rf-quick100" title="点击将退款金额设为订单金额×100%">100%</button>' +
+          '</div>' +
           '</div>';
       }
       var tr = document.createElement('tr');
@@ -541,12 +545,19 @@
       var entry = { input: cb, refund: refundVal === null ? 0 : refundVal };
       rfState.checks.push(entry);
       cb.addEventListener('change', rfCalc);
-      var qBtn = tr.querySelector('.rf-quick75');
+      var qBtn75 = tr.querySelector('.rf-quick75');
+      var qBtn100 = tr.querySelector('.rf-quick100');
       var rInput = tr.querySelector('.rf-refund-input');
-      if (qBtn && rInput) {
-        qBtn.addEventListener('click', function () {
+      if (rInput) {
+        if (qBtn75) qBtn75.addEventListener('click', function () {
           entry.refund = quick75;
           rInput.value = quick75;
+          rfState.customRefund = true;
+          rfCalc();
+        });
+        if (qBtn100) qBtn100.addEventListener('click', function () {
+          entry.refund = quick100;
+          rInput.value = quick100;
           rfState.customRefund = true;
           rfCalc();
         });
