@@ -1,6 +1,7 @@
-# 忽略调试截图与上传的参考图
+# 忽略参考图与调试截图（仓库只保留核心文件）
+images/
+.uploads/
+.trae-html-share-packages/
 debug_*.png
 case*.png
 verify-*.png
-.uploads/*image.png
-.trae-html-share-packages/
