@@ -1,5 +1,4 @@
-# 忽略参考图与调试截图（仓库只保留核心文件）
-images/
+# 系统目录保持隐藏
 .uploads/
 .trae-html-share-packages/
 debug_*.png
