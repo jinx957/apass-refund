@@ -298,6 +298,19 @@
         amountInput.value = String(v);
         updateOrdersTotal(s);
       });
+      const pctBtn100 = document.createElement("button");
+      pctBtn100.type = "button";
+      pctBtn100.className = "rf-amount-btn";
+      pctBtn100.textContent = "100%";
+      pctBtn100.title = "按订单金额的 100% 填入退费金额";
+      pctBtn100.addEventListener("click", function () {
+        const v = Math.round(o.amount * 100) / 100;
+        state.orderAmounts[idx] = v;
+        delete invalidAmounts[idx];
+        amountInput.classList.remove("is-error");
+        amountInput.value = String(v);
+        updateOrdersTotal(s);
+      });
       const cur = document.createElement("span");
       cur.className = "rf-orders__cur";
       cur.textContent = o.currency === "HKD" ? "HK$" : "¥";
@@ -329,9 +342,16 @@
           amountInput.value = String(state.orderAmounts[idx]);
         }
       });
-      amountWrap.appendChild(pctBtn);
-      amountWrap.appendChild(cur);
-      amountWrap.appendChild(amountInput);
+      const inputRow = document.createElement("div");
+      inputRow.className = "rf-orders__input-row";
+      inputRow.appendChild(cur);
+      inputRow.appendChild(amountInput);
+      const btnRow = document.createElement("div");
+      btnRow.className = "rf-orders__btn-row";
+      btnRow.appendChild(pctBtn);
+      btnRow.appendChild(pctBtn100);
+      amountWrap.appendChild(inputRow);
+      amountWrap.appendChild(btnRow);
       tdRefund.appendChild(amountWrap);
       tr.appendChild(tdRefund);
 

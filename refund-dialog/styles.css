@@ -418,7 +418,13 @@ button, input, textarea { font-family: inherit; }
   color: var(--rf-danger-text);
 }
 
-.rf-orders__amount { display: inline-flex; align-items: center; gap: 4px; }
+.rf-orders__amount { display: inline-flex; flex-direction: column; align-items: stretch; gap: 4px; }
+
+.rf-orders__input-row { display: flex; align-items: center; gap: 4px; }
+
+.rf-orders__btn-row { display: flex; gap: 4px; }
+
+.rf-orders__btn-row .rf-amount-btn { flex: 1; }
 
 .rf-amount-btn {
   height: 24px;
@@ -426,25 +432,25 @@ button, input, textarea { font-family: inherit; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--rf-card);
-  border: 1px solid var(--rf-border);
+  background: #ecf5ff;
+  border: 1px solid #c6e2ff;
   border-radius: var(--rf-radius-sm);
-  color: var(--rf-label);
+  color: #409eff;
   font-family: inherit;
   font-size: var(--rf-note-size);
   line-height: 22px;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition: all 0.15s;
 }
 
 .rf-amount-btn:hover {
-  color: var(--rf-primary-hover);
-  border-color: #c6e2ff;
-  background: #ecf5ff;
+  color: #fff;
+  border-color: #409eff;
+  background: #409eff;
 }
 
-.rf-amount-btn:active { color: var(--rf-primary-active); }
+.rf-amount-btn:active { color: #fff; border-color: #3a8ee6; background: #3a8ee6; }
 
 .rf-orders__cur { font-size: var(--rf-base-size); line-height: 20px; color: var(--rf-muted); white-space: nowrap; }
 
