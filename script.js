@@ -796,7 +796,7 @@
           '<span>' + (o.payTime || '—') + '</span>' +
           '<span class="pick-card__amount num">' + money(o.currency, o.amount) + '</span>' +
           '<span class="tag">' + o.orderStatus + '</span>' +
-          '<span class="pick-card__progress">' + progressTag(o.progress) + '</span>' +
+          (o.progress ? '<span class="pick-card__progress">' + progressTag(o.progress) + '</span>' : '') +
         '</div>' +
         '<div class="pick-card__foot">' +
           (blocked
