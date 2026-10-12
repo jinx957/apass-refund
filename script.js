@@ -28,8 +28,8 @@
     { id: 12, student: '郭子睿', phone: '186****7742', orderNo: 'MP202609180010', payTime: '2026-09-18 09:30', items: [{ name: 'APASS会员小学1-3套餐', price: 298 }], amount: 298, refunded: 0, orderStatus: '已缴费', progress: '', submitter: '', applyTime: '', approverTime: '', refundTime: '', currency: 'CNY', paidAt: ts(-24 * 2), examStart: ts(24 * 30), stage: '', cost: 0 }
   ];
 
-  /* 来源与品类：source = APASS平台 / 小程序加购 / 小程序续费；category = APASS会员 / 其他 */
-  var SOURCE_MAP = { 1: 'APASS平台', 2: '小程序续费', 3: '小程序加购', 4: '小程序加购', 5: '小程序加购', 6: '小程序加购', 7: '小程序续费', 8: '小程序续费', 9: '小程序加购', 10: '小程序加购', 11: '小程序续费', 12: '小程序加购' };
+  /* 来源与品类：source = APASS平台 / 小程序加购 / 小程序直购；category = APASS会员 / 其他 */
+  var SOURCE_MAP = { 1: 'APASS平台', 2: '小程序直购', 3: '小程序加购', 4: '小程序加购', 5: '小程序加购', 6: '小程序加购', 7: '小程序直购', 8: '小程序直购', 9: '小程序加购', 10: '小程序加购', 11: '小程序直购', 12: '小程序加购' };
   ORDERS.forEach(function (o) { o.source = SOURCE_MAP[o.id] || '小程序加购'; o.category = 'APASS会员'; });
   var FORM_NAME_MAP = { 3: '2024年澳大利亚数学测评AMC', 4: '2025年英国物理测评BPhO', 5: '2024年袋鼠数学思维挑战', 6: '2025年美国数学测评AMC 8', 9: '2025年英国生物测评BBO', 10: '2025年全美数学测评AMC 10', 12: '2024年澳大利亚数学测评AMC' };
   ORDERS.forEach(function (o) { if (o.source === '小程序加购' && o.category === 'APASS会员') o.formName = FORM_NAME_MAP[o.id] || '2024年澳大利亚数学测评AMC'; });
@@ -40,10 +40,10 @@
   );
   /* 追加在途退费订单（进度 ≥ 已提交易快报），用于退费进度列表与分页演示 */
   ORDERS.push(
-    { id: 15, student: '李小红', phone: '139****0533', orderNo: 'MP202608120032', payTime: '2026-08-12 10:05', items: [{ name: 'APASS会员初中套餐', price: 398 }], amount: 398, refunded: 0, orderStatus: '已缴费', progress: '已提交易快报', submitter: '张明', applyTime: '2026-09-16 09:40', approverTime: '', refundTime: '', currency: 'CNY', paidAt: ts(-24 * 37), examStart: ts(24 * 26), stage: '', cost: 0, source: '小程序续费', category: 'APASS会员' },
+    { id: 15, student: '李小红', phone: '139****0533', orderNo: 'MP202608120032', payTime: '2026-08-12 10:05', items: [{ name: 'APASS会员初中套餐', price: 398 }], amount: 398, refunded: 0, orderStatus: '已缴费', progress: '已提交易快报', submitter: '张明', applyTime: '2026-09-16 09:40', approverTime: '', refundTime: '', currency: 'CNY', paidAt: ts(-24 * 37), examStart: ts(24 * 26), stage: '', cost: 0, source: '小程序直购', category: 'APASS会员' },
     { id: 16, student: '陈晓',   phone: '137****8864', orderNo: 'NS202607200047', payTime: '2026-07-20 15:22', items: [{ name: 'APASS会员高中套餐', price: 398 }], amount: 398, refunded: 0, orderStatus: '已缴费', progress: '负责人审批完成', submitter: '张明', applyTime: '2026-08-30 11:15', approverTime: '2026-08-30 16:02', refundTime: '', currency: 'HKD', paidAt: ts(-24 * 60), examStart: ts(24 * 12), stage: '', cost: 0, source: 'APASS平台', category: 'APASS会员' },
     { id: 17, student: '周晓岚', phone: '150****3321', orderNo: 'MP202604150066', payTime: '2026-04-15 09:48', items: [{ name: 'APASS会员小学4-6套餐', price: 1280 }], amount: 298, refunded: 0, orderStatus: '已缴费', progress: '财务审批完成', submitter: '张明', applyTime: '2026-08-10 14:30', approverTime: '2026-08-10 18:20', refundTime: '', currency: 'CNY', paidAt: ts(-24 * 155), examStart: ts(24 * 30), stage: '', cost: 0, source: '小程序加购', category: 'APASS会员', formName: '2025年全美数学测评AMC 12' },
-    { id: 18, student: '郭子睿', phone: '186****7742', orderNo: 'MP202606020018', payTime: '2026-06-02 11:26', items: [{ name: 'APASS会员小学1-3套餐', price: 298 }], amount: 298, refunded: 0, orderStatus: '已缴费', progress: '等待退费中', submitter: '张明', applyTime: '2026-08-22 10:10', approverTime: '2026-08-22 15:44', refundTime: '', currency: 'CNY', paidAt: ts(-24 * 108), examStart: ts(24 * 18), stage: '', cost: 0, source: '小程序续费', category: 'APASS会员' },
+    { id: 18, student: '郭子睿', phone: '186****7742', orderNo: 'MP202606020018', payTime: '2026-06-02 11:26', items: [{ name: 'APASS会员小学1-3套餐', price: 298 }], amount: 298, refunded: 0, orderStatus: '已缴费', progress: '等待退费中', submitter: '张明', applyTime: '2026-08-22 10:10', approverTime: '2026-08-22 15:44', refundTime: '', currency: 'CNY', paidAt: ts(-24 * 108), examStart: ts(24 * 18), stage: '', cost: 0, source: '小程序直购', category: 'APASS会员' },
     { id: 19, student: '王小明', phone: '138****2211', orderNo: 'MP202602100029', payTime: '2026-02-10 16:38', items: [{ name: 'APASS会员高中套餐', price: 398 }], amount: 398, refunded: 398, orderStatus: '已退费', progress: '退款完成', submitter: '张明', applyTime: '2026-04-02 09:12', approverTime: '2026-04-02 14:50', refundTime: '2026-04-03 10:05', currency: 'CNY', paidAt: ts(-24 * 220), examStart: ts(-24 * 120), stage: '', cost: 0, source: 'APASS平台', category: 'APASS会员' },
     { id: 20, student: '李小红', phone: '139****0533', orderNo: 'MP202607100051', payTime: '2026-07-10 13:15', items: [{ name: 'APASS会员初中套餐', price: 398 }], amount: 398, refunded: 0, orderStatus: '已缴费', progress: '退款失败', submitter: '张明', applyTime: '2026-08-25 09:55', approverTime: '2026-08-25 15:30', refundTime: '', currency: 'CNY', paidAt: ts(-24 * 70), examStart: ts(24 * 22), stage: '', cost: 0, source: '小程序加购', category: 'APASS会员', formName: '2025年加拿大化学思维挑战CCC' }
   );
@@ -85,7 +85,7 @@
     entity: '阿思丹(成都)教育科技有限公司',
     dept: '竞赛客服部门'
   };
-  var DOC_TYPE_BY_SOURCE = { '小程序加购': '项目退款单（无出纳）', '小程序续费': '项目退款单（无出纳）', 'APASS平台': '项目退款单（无出纳）' };
+  var DOC_TYPE_BY_SOURCE = { '小程序加购': '项目退款单（无出纳）', '小程序直购': '项目退款单（无出纳）', 'APASS平台': '项目退款单（无出纳）' };
   function buildRefundTitle(o) {
     var names = o.items.map(function (it) { return it.name; }).join(' + ');
     return o.student + '    ' + names + '×' + o.items.length + '  退费';
@@ -120,7 +120,7 @@
     return '<span class="' + cls + '">' + s + '</span>';
   }
   function sourceTag(s) {
-    var cls = s === 'APASS平台' ? 'tag--brand' : (s === '小程序续费' ? 'tag--ok' : 'tag--warn');
+    var cls = s === 'APASS平台' ? 'tag--brand' : (s === '小程序直购' ? 'tag--ok' : 'tag--warn');
     return '<span class="tag ' + cls + '">' + s + '</span>';
   }
   function opCell(o) {
@@ -785,7 +785,7 @@
       var name = o.source === '小程序加购'
         ? (o.formName || '') + ' APASS加购表'
         : o.items.map(function (it) { return it.name; }).join('、') + '（' + o.items.length + ' 件）';
-      var srcCls = o.source === 'APASS平台' ? 'tag--brand' : (o.source === '小程序续费' ? 'tag--ok' : 'tag--warn');
+      var srcCls = o.source === 'APASS平台' ? 'tag--brand' : (o.source === '小程序直购' ? 'tag--ok' : 'tag--warn');
       html += '<div class="pick-card' + (blocked ? ' is-disabled' : '') + '" data-id="' + o.id + '">' +
         '<div class="pick-card__head">' +
           '<span class="tag ' + srcCls + '">' + o.source + '</span>' +
